@@ -8,7 +8,20 @@ path = Path(__file__).parent / 'data.csv'
 # Title of the app
 st.title("山宝宝成长记录1.0")
 
-st.dataframe(pd.read_csv(path, encoding='utf-8'))
+df = pd.read_csv(path, encoding='utf-8')
+st.dataframe(df)
+@st.cache_data
+def convert_df(df):
+   return df.to_csv(index=False).encode('utf-8-sig')
+
+csv = convert_df(df)
+st.download_button(
+   "Press to Download",
+   csv,
+   "file.csv",
+   "text/csv",
+   key='download-csv'
+)
 
 items = {'记录时间': [datetime.datetime.now()], '项目时间': [None], '项目': [None], '哺乳方式': [None], '哺乳方位': [None], '哺乳时间': [None], '哺乳量': [None],
          '大小便': [None], '大小便性状': [None], '大小便颜色': [None], '大小便量': [None], '体重': [None], '身高': [None], '其他': [None]}
@@ -77,3 +90,4 @@ if st.button("Submit"):
 
 else:
     st.error("Please fill all fields correctly.")
+
