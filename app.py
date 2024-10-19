@@ -27,11 +27,12 @@ items = {'记录时间': [datetime.datetime.now()], '项目时间': [None], '项
          '大小便': [None], '大小便性状': [None], '大小便颜色': [None], '大小便量': [None], '体重': [None], '身高': [None], '其他': [None]}
 
 # Input fields
-item_time = st.text_input("项目时间", value=datetime.datetime.now())
-items['项目时间'] = [item_time]
-
 option = st.selectbox("选择项目", ["选择", "哺乳", "换尿布", "体重", "身高", "其他"])
 items['项目'] = [option]
+
+if option != '选择':
+    item_time = st.text_input("项目时间")
+    items['项目时间'] = [item_time]
 
 if option == "哺乳":
     feed = st.selectbox("方式", ["选择", "直接母乳", "瓶喂母乳", "配方奶粉"])
@@ -77,7 +78,7 @@ elif option == "其他":
     other = st.text_input("其他")
     items['其他'] = [other]
 
-# st.markdown(items)
+st.markdown(items)
 
 # Button to submit
 if st.button("Submit"):
