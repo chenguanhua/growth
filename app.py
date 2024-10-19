@@ -78,7 +78,7 @@ elif option == "其他":
     other = st.text_input("其他")
     items['其他'] = [other]
 
-st.markdown(items)
+# st.markdown(items)
 
 # Button to submit
 if st.button("Submit"):
